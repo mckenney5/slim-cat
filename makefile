@@ -12,6 +12,7 @@ clean:
 	rm cat.1.gz
 
 install: cat.out cat.1.gz
+	#[IMPORTANT] if you run this command twice, your original cat will be overwritten
 	sudo cp /usr/bin/cat /usr/bin/cat.bak
 	sudo cp cat.out /usr/bin/cat
 	sudo cp /usr/share/man/man1/cat.1.gz /usr/share/man/man1/cat.1.gz.bak
@@ -22,7 +23,7 @@ uninstall: /usr/bin/cat.bak /usr/share/man/man1/cat.1.gz.bak
 	sudo mv /usr/share/man/man1/cat.1.gz.bak /usr/share/man/man1/cat.1.gz
 
 unsafe-install: cat.out cat.1.gz
-	overwrites cat in /usr/bin
+	# !!! overwrites cat in /usr/bin
 	sudo cp cat.out /usr/bin/cat
 	sudo cp cat.1.gz /usr/share/man/man1/
 
