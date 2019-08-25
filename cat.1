@@ -1,0 +1,52 @@
+.TH CAT "1" "August 2019" "SLIM CAT BETA 1.0.0" "User Commands"
+.SH NAME
+cat \- still concatenating files and printing on the standard output, just slimmer.
+.SH SYNOPSIS
+.B cat
+[\fI\,OPTION\/\fR]... [\fI\,FILE\/\fR]...
+.SH DESCRIPTION
+.PP
+This is a rewrite of GNU cat where the unused features are removed. The only option is -h for help.
+.PP
+We concatenate files(s) to standard output with less than 55 lines of code.
+.PP
+With no file, or when file is \-, read standard input.
+.SH EXAMPLES
+.TP
+cat -h
+Displays help.
+.TP
+cat -u
+Ignored, this program doesn't wait to display output.
+.TP
+cat x \- y
+Output x's contents, then standard input, then y's contents.
+.TP
+cat
+Copy standard input to standard output.
+.SH AUTHOR
+Written by Adam McKenney
+.SH "REPORTING BUGS"
+See the offical repo: <https://github.com/mckenney5/slim-cat>
+.SH COPYRIGHT
+Copyright \(co 2019 Adam McKenney
+
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+
+See the license for more information.
+<https://github.com/mckenney5/slim-cat/raw/master/LICENSE>.
+
+.SH "POSIX"
+See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/cat.html for more info on cat.
+.SH "SEE ALSO"
+\fBtac\fP(1)
+
