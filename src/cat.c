@@ -24,7 +24,7 @@ int get_file(char* file_name){
 	if(file_name[0] == '-' && file_name[1] == '\0') fp = stdin; //if the user did 'cat -' or 'cat foo - bar'
 	else fp = fopen(file_name, "r");
 
-	if(fp == NULL){ throw_error(file_name); return -1; }
+	if(fp == NULL){ throw_error(file_name); return 1; }
 
 	cat(fp);
 	fclose(fp);
@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 		if(argv[i][0] == '-' && argv[i][1] != '\0'){ //if its a command line arg
 			if(argv[i][1] == 'h') { puts(HELP); return 0; }
 			else if(argv[i][1] == 'u') no_buf = 1; //required by POSIX, turns off buffered output
-			else { fprintf(stderr, "%s: unknown command line arg '%s'\n", NAME, argv[i]); return 1;}
+			else { fprintf(stderr, "%s: unknown command line arg '%s'\n", NAME, argv[i]); return 2;}
 		} else break;
 	}
 	if(argv[i] == NULL) cat(stdin); //if no args
