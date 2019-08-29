@@ -36,7 +36,7 @@ int main(int argc, char *argv[]){
 		if(argv[i][0] == '-' && argv[i][1] != '\0'){ //if its a command line arg
 			if(argv[i][1] == 'h') { puts(HELP); return 0; }
 			else if(argv[i][1] == 'u') no_buf = 1; //required by POSIX, turns off buffered output
-			else { fprintf(stderr, "%s: unknown command line arg '%s'\n", NAME, argv[i]); return 2;}
+			else { fprintf(stderr, "%s: unknown command line arg '%s'\n", NAME, argv[i]); return 1;}
 		} else break;
 	}
 	if(argv[i] == NULL) cat(stdin); //if no args
