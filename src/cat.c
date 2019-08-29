@@ -17,7 +17,7 @@ void cat(FILE *fp){
 	if(no_buf) if(setvbuf(fp, &p, _IONBF, 1)) throw_error(NULL); //tell the OS we dont want a buffer
 	do {
 		status = fread(&p, 1, 1, fp);
-		if(status != 0) fwrite(&p, 1, 1, stdout);
+		if(status != 0) if(fwrite(&p, 1, 1, stdout) == 0){ throw_error("STDOUT"); return;}
 	} while(status != 0);
 }
 int get_file(char* file_name){
