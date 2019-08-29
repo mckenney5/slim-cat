@@ -12,13 +12,11 @@ void throw_error(char* extra_msg){
 }
 void cat(FILE *fp){
 /* loops through the file and puts the data one byte at a time into stdout until fread() returns 0 */
-	char p;
-	int status = 0;
+	char p = 0;
 	if(no_buf) if(setvbuf(fp, &p, _IONBF, 1)) throw_error(NULL); //tell the OS we dont want a buffer
-	do {
-		status = fread(&p, 1, 1, fp);
-		if(status != 0) if(fwrite(&p, 1, 1, stdout) == 0){ throw_error("STDOUT"); return;}
-	} while(status != 0);
+	do 
+		if(!fread(&p, 1, 1, fp) || !fwrite(&p, 1, 1, stdout)) break; //if we were unable to read or write, we are done
+	while(1);
 }
 int get_file(char* file_name){
 /* tries to open the user's file, then calls cat() with its file pointer */
@@ -26,10 +24,8 @@ int get_file(char* file_name){
 	if(file_name[0] == '-' && file_name[1] == '\0') fp = stdin; //if the user did 'cat -' or 'cat foo - bar'
 	else fp = fopen(file_name, "r");
 
-	if(fp == NULL){
-		throw_error(file_name);
-		return -1;
-	}
+	if(fp == NULL){ throw_error(file_name); return -1; }
+
 	cat(fp);
 	fclose(fp);
 	return 0;
