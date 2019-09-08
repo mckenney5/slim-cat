@@ -4,7 +4,7 @@
 #define NAME "cat"   //Program name, can be changed so a user can keep their bloated version of cat
 #define HELP "Usage: " NAME " [-hu] [file...]\nWe concatenate files(s) to standard output with less than 50 lines of code.\n\nWith no file, or when file is -, read standard input.\nExamples:\n  " NAME " -h     Displays the help\n  " NAME " -u     Tells the OS that we dont want a buffer (warning may be a lot slower with a large file).\n  " NAME " x - y  Output x's contents, then standard input, then y's contents.\n  " NAME "        Copy standard input to standard output."
 static char no_buf = 0; //-u option
-void throw_error(char* extra_msg){
+void throw_error(const char* extra_msg){
 /* function to writes the program name, optionally extra info, then the error to stderr */
 	if(extra_msg != NULL) fprintf(stderr, "%s: %s: ", NAME, extra_msg);
 	else fprintf(stderr, "%s: ", NAME);
@@ -18,7 +18,7 @@ void cat(FILE *fp){
 		if(!fread(&p, 1, 1, fp) || !fwrite(&p, 1, 1, stdout)) break; //if we were unable to read or write, we are done. Size must be 1 for binary files
 	while(1);
 }
-int get_file(char* file_name){
+int get_file(const char* file_name){
 /* tries to open the user's file, then calls cat() with its file pointer */
 	FILE *fp = NULL;
 	if(file_name[0] == '-' && file_name[1] == '\0') fp = stdin; //if the user did 'cat -' or 'cat foo - bar'
@@ -31,7 +31,8 @@ int get_file(char* file_name){
 	return 0;
 }
 int main(int argc, char *argv[]){
-	int i;
+/* takes the args -h for help and -u for unbuffered output */
+	size_t i;
 	for(i=1; i < argc; i++){ //step through all the vars
 		if(argv[i][0] == '-' && argv[i][1] != '\0'){ //if its a command line arg
 			if(argv[i][1] == 'h') { puts(HELP); return 0; }
