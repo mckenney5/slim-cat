@@ -23,7 +23,7 @@ The simplest way is to compile by `make`
 * `make install`            : moves slimcat to the /usr/bin dir and moves the man page
 * `make uninstall`          : deletes slimcat and its man page
 * `make unsafe-install`	    : copies the default cat to cat.bak and moves this cat.out to the /usr/bin file
-* `make unsafe-uninstall    : replaces cat with cat.bak from install
+* `make unsafe-uninstall`    : replaces cat with cat.bak from install
 
 ## How to contribute
 Submit a pull/merge request at the offical repo.
