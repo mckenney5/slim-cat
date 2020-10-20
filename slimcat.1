@@ -1,28 +1,28 @@
-.TH CAT "1" "August 2019" "SLIM CAT BETA 1.0.0" "User Commands"
+.TH SLIMCAT "1" "August 2020" "SLIM CAT 1.0.0" "User Commands"
 .SH NAME
-cat \- still concatenating files and printing on the standard output, just slimmer.
+slimcat \- still concatenating files and printing on the standard output, just slimmer.
 .SH SYNOPSIS
 .B cat
 [\fI\,OPTION\/\fR]... [\fI\,FILE\/\fR]...
 .SH DESCRIPTION
 .PP
-This is a rewrite of GNU cat where the unused features are removed. The only option is -h for help.
+This is a rewrite of GNU cat where the unused features are removed. The only option is -h for help and -u for unbuffered output.
 .PP
 We concatenate files(s) to standard output with less than 50 lines of code.
 .PP
 With no file, or when file is \-, read standard input.
 .SH EXAMPLES
 .TP
-cat -h
+slimcat -h
 Displays help.
 .TP
-cat -u
+slimcat -u
 Tells the OS that we dont want a buffer (warning may be a lot slower with a large file).
 .TP
-cat x \- y
+slimcat x \- y
 Output x's contents, then standard input, then y's contents.
 .TP
-cat
+slimcat
 Copy standard input to standard output.
 .SH "EXIT STATUS"
 .TP
@@ -39,7 +39,7 @@ Written by Adam McKenney
 .SH "REPORTING BUGS"
 See the offical repo: <https://github.com/mckenney5/slim-cat>
 .SH COPYRIGHT
-Copyright \(co 2019 Adam McKenney
+Copyright \(co 2020 Adam McKenney
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy

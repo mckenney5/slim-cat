@@ -1,9 +1,12 @@
-/* Copyright 2019 (c) Adam McKenney - See LICENSE for details */
+/* Copyright 2020 (c) Adam McKenney - See LICENSE for details */
 /* A way slimmer version of cat without the GNU bloat features that I have never used nor needed */
 #include <stdio.h>   //fgetc, putchar, FILE, fopen, perror, fclose, puts, fprintf
-#define NAME "cat"   //Program name, can be changed so a user can keep their bloated version of cat
+
+#define NAME "slimcat"   //Program name, can be changed
 #define HELP "Usage: " NAME " [-hu] [file...]\nWe concatenate files(s) to standard output with less than 50 lines of code.\n\nWith no file, or when file is -, read standard input.\nExamples:\n  " NAME " -h     Displays the help\n  " NAME " -u     Tells the OS that we dont want a buffer (warning may be a lot slower with a large file).\n  " NAME " x - y  Output x's contents, then standard input, then y's contents.\n  " NAME "        Copy standard input to standard output."
+
 static char no_buf = 0; //-u option
+
 void throw_error(const char* extra_msg){
 /* function to writes the program name, optionally extra info, then the error to stderr */
 	if(extra_msg != NULL) fprintf(stderr, "%s: %s: ", NAME, extra_msg);
@@ -44,4 +47,3 @@ int main(int argc, char *argv[]){
 	else for( ; i < argc; i++) get_file(argv[i]); //step through each arg as if it's a file
 	return 0;
 }
-

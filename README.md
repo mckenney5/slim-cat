@@ -6,8 +6,8 @@ cat — _still concatenating files and printing on the standard output, just sli
 This is a rewrite of GNU cat where the unused features are removed.
 
 ## Project Meta
-This software is in a **working beta** state.
-The software works but still needs testing before being a stable release
+This software is in a **working stable** state.
+The software works as inteded, currenlty bug free.
 
 ## License
 This code is licensed under the MIT license. See 'LICENSE' for details. 
