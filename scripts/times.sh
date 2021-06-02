@@ -1,5 +1,5 @@
 #!/bin/bash
-# Copyright 2019 (c) Adam McKenney - See LICENSE for details #
+# Copyright 2021 (c) Adam McKenney - See LICENSE for details #
 # Tests the speed of cats, calls itself recursively if the user is missing some files
 if [ -f test.100mb.o ]; then
 	echo "Running system's cat to /dev/null"
@@ -13,6 +13,7 @@ if [ -f test.100mb.o ]; then
 	echo "Running slim-cat -u (unbuffered) to /dev/null"
 	time ./cat.out -u test.100mb.o > /dev/null
 	echo "--"
+
 	echo "Done."
 else
 	if [ -f a.out ]; then
