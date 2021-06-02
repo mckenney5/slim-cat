@@ -1,4 +1,4 @@
-.TH SLIMCAT "1" "August 2020" "SLIM CAT 1.1.0" "User Commands"
+.TH SLIMCAT "1" "August 2020" "SLIM CAT 1.2.0" "User Commands"
 .SH NAME
 slimcat \- still concatenating files and printing on the standard output, just slimmer.
 .SH SYNOPSIS
@@ -8,7 +8,7 @@ slimcat \- still concatenating files and printing on the standard output, just s
 .PP
 This is a rewrite of GNU cat where the unused features are removed. The only option is -h for help and -u for unbuffered output.
 .PP
-We concatenate files(s) to standard output with less than 50 lines of code.
+We concatenate files(s) to standard output with less than 60 lines of code.
 .PP
 With no file, or when file is \-, read standard input.
 .SH EXAMPLES
@@ -37,6 +37,10 @@ Unknown command line argument.
 .TP
 3
 Error while writing.
+.TP
+4
+Error while allocating memory.
+
 .SH AUTHOR
 Written by Adam McKenney
 .SH "REPORTING BUGS"
