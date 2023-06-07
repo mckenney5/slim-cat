@@ -1,10 +1,12 @@
 #!/bin/bash
-# Copyright 2021 (c) Adam McKenney - See LICENSE for details #
+# Copyright 2023 (c) Adam McKenney - See LICENSE for details #
 # Makes cat.out clone its self with its self 12 times then checks to see if theres a difference
+
+# TODO make this a for loop with a command line arg of loop ammount
 
 if [ -f cat.out ]; then
 	echo "Generating 12 cats..."
-	cat cat.out > 1.out
+	./cat.out -u cat.out > 1.out
 	chmod +x 1.out
 	./1.out -u 1.out > 2.out
 	chmod +x 2.out

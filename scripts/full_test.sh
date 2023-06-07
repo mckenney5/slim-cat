@@ -5,7 +5,7 @@ echo "### Creating cat.out ###"
 gcc ../src/cat.c -g -o cat.out
 
 echo "### Checking for memory leaks ###"
-echo "Type in input, then hit Ctrl-D, do this twice"
+echo "Type in input, then hit Ctrl-D, do this TWICE"
 valgrind -q ./cat.out - ../src/cat.c -
 
 echo "### Doing consistancy test ###"
@@ -17,5 +17,7 @@ echo "### Doing speed test ###"
 
 echo "### Cleaning up ###"
 rm -v cat.out
+rm -v a.out
 
-echo "\nDone."
+echo " "
+echo "Done."
