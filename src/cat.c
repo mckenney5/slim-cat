@@ -1,8 +1,8 @@
 /* Copyright 2023 (c) Adam McKenney - See LICENSE for details */
 /* A way slimmer version of cat without the GNU bloat features that I have never used nor needed */
-#include <stdio.h> //fprintf, perror
-#include <stdlib.h> //exit
+#include <stdlib.h> //malloc
 #include <err.h> //err, errx
+#include <sysexits.h> //EX_OK, EX_OSERR, EX_IOERR, EX_NOINPUT
 #include <unistd.h> //read, write, close
 #include <sys/types.h> //stat
 #include <sys/stat.h> //stat
@@ -21,10 +21,10 @@ void cat(const int fd, const char no_buf, size_t size){
 		size_t r = 0;
 		if(no_buf) size = 1;
 		void *buf = (void*)malloc(size);
-		if(buf == NULL) err(EXIT_FAILURE, "while allocating buf in cat()");
+		if(buf == NULL) err(EX_OSERR, "while allocating buf in cat()");
 		while((r=read(fd, buf, size)) > 0)
-			if(write(STDOUT_FILENO, buf, r) != r) err(EXIT_FAILURE, "while writing to fd in cat(). %ld bytes were written", r); //if writing stops for some reason
-		if(r == -1) err(EXIT_FAILURE, "while reading fd in cat()."); //if read(2) throws an error
+			if(write(STDOUT_FILENO, buf, r) != r) err(EX_IOERR, "while writing to fd in cat(). %ld bytes were written", r); //if writing stops for some reason
+		if(r == -1) err(EX_IOERR, "while reading fd in cat()."); //if read(2) throws an error
 		free(buf);
 	} 
 }
@@ -33,9 +33,9 @@ void get_file(const char* file_name, const char no_buf){
 	if(file_name[0] == '-' && file_name[1] == '\0'){ cat(STDIN_FILENO, no_buf, BUFF_SIZE); return;}
 	struct stat buffer;
 	int fd = -1, status = stat(file_name, &buffer);
-	if(status != 0) err(EXIT_FAILURE, "while checking file '%s' in get_file()", file_name);
+	if(status != 0) err(EX_NOINPUT, "while checking file '%s' in get_file()", file_name);
 	fd = open(file_name, O_RDONLY);
-	if(fd == -1) err(EXIT_FAILURE, "while opening file '%s' in get_file()", file_name); 
+	if(fd == -1) err(EX_IOERR, "while opening file '%s' in get_file()", file_name); 
 	cat(fd, no_buf, buffer.st_size);
 	close(fd);
 }
@@ -46,12 +46,12 @@ int main(int argc, char *argv[]){
 		if(argv[1] == NULL)
 			cat(STDIN_FILENO, no_buf, BUFF_SIZE); 
 		else if(argv[i][0] == '-' && argv[i][1] != '\0'){ //if its a command line arg
-			if(argv[i][1] == 'h') { puts(HELP); return 0; }
+			if(argv[i][1] == 'h') errx(EX_OK, "\n%s\n", HELP);
 			else if(argv[i][1] == 'u') no_buf = 1; //required by POSIX, turns off buffered output
-			else errx(EXIT_FAILURE, "while reading command line arg %ld in main(): unknown command line arg '%s'\n", i, argv[i]);
+			else errx(EX_USAGE, "while reading command line arg %ld in main(): unknown command line arg '%s'\n", i, argv[i]);
 		} else {
 			for( ; i < argc; i++) get_file(argv[i], no_buf); //step through each arg as if it's a file, even if its a -
 		}
 	}
-	return 0;
+	return EX_OK;
 }

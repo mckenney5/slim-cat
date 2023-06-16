@@ -8,7 +8,7 @@ slimcat \- still concatenating files and printing on the standard output, just s
 .PP
 This is a rewrite of GNU cat where the unused features are removed. The only option is -h for help and -u for unbuffered output.
 .PP
-We concatenate files(s) to standard output with less than 60 lines of code.
+We concatenate files(s) to standard output with about 60 lines of code.
 .PP
 With no file, or when file is \-, read standard input.
 .SH EXAMPLES
@@ -27,26 +27,26 @@ Copy standard input to standard output.
 .SH "EXIT STATUS"
 .TP
 0
-Exited Normally (Success).
+Exited Normally (EX_OK).
 .TP
-1
-Error opening file.
+64
+Unknown command line argument (EX_USAGE).
 .TP
-2
-Unknown command line argument.
+66
+Error opening file (EX_NOINPUT).
 .TP
-3
-Error while writing.
+71
+Error while allocating memory (EX_OSERR).
 .TP
-4
-Error while allocating memory.
+74
+Error while writing (EX_IOERR).
 
 .SH AUTHOR
 Written by Adam McKenney
 .SH "REPORTING BUGS"
 See the offical repo: <https://github.com/mckenney5/slim-cat>
 .SH COPYRIGHT
-Copyright \(co 2021 Adam McKenney
+Copyright \(co 2023 Adam McKenney
 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -65,5 +65,5 @@ See the license for more information.
 .SH "POSIX"
 See https://pubs.opengroup.org/onlinepubs/9699919799/utilities/cat.html for more info on cat.
 .SH "SEE ALSO"
-\fBtac\fP(1)
+\fBtac\fP(1) \fBsysexits.h\fP(3head)
 
